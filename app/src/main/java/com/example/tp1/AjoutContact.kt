@@ -1,6 +1,8 @@
 package com.example.tp1
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -15,7 +17,31 @@ class AjoutContact : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAjoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-
+        val intent = Intent(this, AjoutContact::class.java)
+        binding.btnval.setOnClickListener {
+            confCreation()
+            if (binding.bajout.isChecked){
+                confAddFav()
+            }
+        }
     }
+    fun confCreation(){
+        val text = "Contact sauvegardé !"
+        val duration = Toast.LENGTH_SHORT
+        Toast.makeText(this, text, duration).show()
+    }
+
+    fun confAddFav(){
+        val text = "Contact ajouté aux favoris !"
+        val duration = Toast.LENGTH_SHORT
+        Toast.makeText(this, text, duration).show()
+    }
+
+
+
+
+
+
+
+
 }
