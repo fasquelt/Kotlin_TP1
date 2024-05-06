@@ -1,5 +1,6 @@
 package com.example.tp1
 import android.app.DatePickerDialog
+import android.app.DatePickerDialog.OnDateSetListener
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -9,9 +10,11 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
+
 class AjoutContact : AppCompatActivity() {
 
     private lateinit var binding: ActivityAjoutBinding
+    val myCalendar = Calendar.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +37,16 @@ class AjoutContact : AppCompatActivity() {
         }
         val prenom = intent.getStringExtra("prenom")
         binding.input2.setText(prenom)
+        val date =
+            OnDateSetListener { view, year, month, day ->
+                myCalendar.set(Calendar.YEAR, year)
+                myCalendar.set(Calendar.MONTH, month)
+                myCalendar.set(Calendar.DAY_OF_MONTH, day)
+                updateLabel()
+            }
+        binding.input3.setOnClickListener {
+            setPopup()
+        }
     }
 
     private fun confCreationCourt(){
@@ -54,12 +67,12 @@ class AjoutContact : AppCompatActivity() {
         Toast.makeText(this, text, duration).show()
     }
 
-    private fun getDate() {
+    private fun setPopup() {
         val cal = Calendar.getInstance()
         val year = cal.get(Calendar.YEAR)
         val month = cal.get(Calendar.MONTH)
         val day = cal.get(Calendar.DAY_OF_MONTH)
-        val dpd = DatePickerDialog(this, { view, year, monthOfYear, dayOfMonth ->
+        DatePickerDialog(this, { view, year, monthOfYear, dayOfMonth ->
             cal.set(Calendar.YEAR, year)
             cal.set(Calendar.MONTH, monthOfYear)
             cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
@@ -67,6 +80,12 @@ class AjoutContact : AppCompatActivity() {
             val sdf = SimpleDateFormat(myFormat, Locale.FRANCE)
             Toast.makeText(this, sdf.format(cal.time), Toast.LENGTH_LONG).show()
 
-        }, year, month, day)
+        }, year, month, day).show()
+    }
+
+    private fun updateLabel() {
+        val myFormat = "MM/dd/yy"
+        val dateFormat = SimpleDateFormat(myFormat, Locale.US)
+        binding.input3.setText(dateFormat.format(myCalendar.getTime()))
     }
 }
