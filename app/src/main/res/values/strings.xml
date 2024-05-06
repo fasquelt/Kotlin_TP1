@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">TP1</string>
+    <string name="nom">Nom :</string>
+    <string name="pre">Prénom :</string>
+    <string name="ddn"> Né.e le : </string>
+    <string name="genre"> Genre </string>
+    <string name="h"> Homme </string>
+    <string name="f"> Femme </string>
+    <string name="a"> Autre </string>
+    <string name="add">Ajout d\'un contact</string>
+    <string name="alt_image">Image du contact</string>
+    <string name="fav" > Ajouter aux favoris ? </string>
+    <string name="ajoutfav">Ajouter aux favoris ?</string>
+    <string name="valider">Valider</string>
+    <string name="ajout_de_contact">Ajout de contact</string>
+</resources>
