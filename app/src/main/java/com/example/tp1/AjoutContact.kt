@@ -1,13 +1,33 @@
 package com.example.tp1
+import android.app.AlertDialog
 import android.app.DatePickerDialog
+import android.app.Dialog
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.DialogFragment
 import com.example.tp1.databinding.ActivityAjoutBinding
 import com.google.android.material.snackbar.Snackbar
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+
+class StartGameDialogFragment : DialogFragment() {
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        return activity?.let {
+            // Use the Builder class for convenient dialog construction.
+            val builder = AlertDialog.Builder(it)
+            builder.setMessage("Confirmer l'ajout")
+                .setPositiveButton("Oui") { dialog, id ->
+                }
+                .setNegativeButton("Non") { dialog, id ->
+                    // User cancelled the dialog.
+                }
+            // Create the AlertDialog object and return it.
+            builder.create()
+        } ?: throw IllegalStateException("Activity cannot be null")
+    }
+}
 
 
 class AjoutContact : AppCompatActivity() {
@@ -25,6 +45,7 @@ class AjoutContact : AppCompatActivity() {
                 snack.show()
             }
             else{
+                StartGameDialogFragment().show(supportFragmentManager, "CONFIRMATION")
                 if (binding.bajout.isChecked){
                     confAddFav()
                 }
@@ -79,7 +100,7 @@ class AjoutContact : AppCompatActivity() {
     }
 
     private fun updateLabel() {
-        val myFormat = "MM/dd/yy"
+        val myFormat = "dd/MM/yyyy"
         val dateFormat = SimpleDateFormat(myFormat, Locale.FRANCE)
         binding.input3.setText(dateFormat.format(myCalendar.time))
     }
