@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TP1</string>
+    <string name="app_name">TP n°1</string>
     <string name="nom">Nom :</string>
     <string name="pre">Prénom :</string>
     <string name="ddn"> Né.e le : </string>
@@ -13,4 +13,5 @@
     <string name="ajoutfav">Ajouter aux favoris ?</string>
     <string name="valider">Valider</string>
     <string name="ajout_de_contact">Ajout de contact</string>
+    <string name="demande_prenom">Entrez le prénom du contact</string>
 </resources>

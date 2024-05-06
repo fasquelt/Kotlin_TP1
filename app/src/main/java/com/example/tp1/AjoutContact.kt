@@ -3,6 +3,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.tp1.databinding.ActivityAjoutBinding
+import com.google.android.material.snackbar.Snackbar
 
 class AjoutContact : AppCompatActivity() {
 
@@ -13,12 +14,18 @@ class AjoutContact : AppCompatActivity() {
         binding = ActivityAjoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.btnval.setOnClickListener {
-            if (binding.bajout.isChecked){
-                confCreationCourt()
-                confAddFav()
+            if(binding.input1.text.isEmpty() || binding.input2.text.isEmpty()){
+                val snack = Snackbar.make(it,"Nom ou prénom manquant",Snackbar.LENGTH_LONG)
+                snack.show()
             }
             else{
-                confCreationLong()
+                if (binding.bajout.isChecked){
+                    confCreationCourt()
+                    confAddFav()
+                }
+                else{
+                    confCreationLong()
+                }
             }
         }
         val prenom = intent.getStringExtra("prenom")
