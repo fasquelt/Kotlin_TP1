@@ -25,13 +25,13 @@ class AjoutContact : AppCompatActivity() {
         binding.input1.setText(prenom)
     }
 
-    fun confCreation(){
+    private fun confCreation(){
         val text = "Contact sauvegardé !"
         val duration = Toast.LENGTH_SHORT
         Toast.makeText(this, text, duration).show()
     }
 
-    fun confAddFav(){
+    private fun confAddFav(){
         val text = "Contact ajouté aux favoris !"
         val duration = Toast.LENGTH_SHORT
         Toast.makeText(this, text, duration).show()
