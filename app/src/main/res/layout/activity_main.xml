@@ -11,19 +11,32 @@
         android:id="@+id/message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:text="Entrez le nom du contact"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:height="5dp"
+        app:layout_constraintStart_toStartOf="@+id/message"
+        app:layout_constraintTop_toBottomOf="@+id/message"
+        app:layout_constraintBottom_toTopOf="@+id/bouton_acces"
+        android:inputType="text"
+        android:labelFor="@+id/page"
+        android:autofillHints="name"
+        android:hint="@string/nom"/>
 
     <Button
         android:id="@+id/bouton_acces"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/ajout_de_contact"
-        app:layout_constraintTop_toBottomOf="@+id/message"
-        app:layout_constraintStart_toStartOf="@+id/message"
+        app:layout_constraintTop_toBottomOf="@+id/input"
+        app:layout_constraintStart_toStartOf="@+id/input"
         app:layout_constraintEnd_toEndOf="@+id/message"
         />
 

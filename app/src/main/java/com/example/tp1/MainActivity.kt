@@ -2,6 +2,8 @@ package com.example.tp1
 
 import android.content.Intent
 import android.os.Bundle
+import android.provider.AlarmClock.EXTRA_MESSAGE
+import android.widget.EditText
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -16,9 +18,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val intent = Intent(this, AjoutContact::class.java)
         binding.boutonAcces.setOnClickListener {
-            startActivity(intent)
+            sendValue()
         }
+    }
+    fun sendValue(){
+        val text = binding.input.text.toString()
+        val intent = Intent(this, AjoutContact::class.java).apply {
+            putExtra("valeur", text);
+        }
+        startActivity(intent)
     }
 }

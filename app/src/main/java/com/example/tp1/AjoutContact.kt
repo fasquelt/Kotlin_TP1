@@ -2,6 +2,8 @@ package com.example.tp1
 
 import android.content.Intent
 import android.os.Bundle
+import android.provider.AlarmClock.EXTRA_MESSAGE
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -24,7 +26,10 @@ class AjoutContact : AppCompatActivity() {
                 confAddFav()
             }
         }
+        val prenom = intent.getStringExtra("valeur")
+        binding.input1.setText(prenom)
     }
+
     fun confCreation(){
         val text = "Contact sauvegardé !"
         val duration = Toast.LENGTH_SHORT
