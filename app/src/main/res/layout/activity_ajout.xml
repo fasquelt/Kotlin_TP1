@@ -70,7 +70,7 @@
         android:text="@string/nom"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintHeight="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/genre" />
+        app:layout_constraintBottom_toBottomOf="@id/input1" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/input1"
@@ -93,7 +93,7 @@
         app:layout_constraintEnd_toStartOf="@id/input2"
         app:layout_constraintStart_toStartOf="@+id/nom"
         app:layout_constraintHeight="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/input2" />
+        app:layout_constraintBottom_toBottomOf="@id/input2" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/input2"

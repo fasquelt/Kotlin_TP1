@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">TP n°1</string>
-    <string name="nom">Nom :</string>
-    <string name="pre">Prénom :</string>
+    <string name="nom">Nom </string>
+    <string name="pre">Prénom </string>
     <string name="ddn"> Né.e le : </string>
     <string name="genre"> Genre </string>
     <string name="h"> Homme </string>
