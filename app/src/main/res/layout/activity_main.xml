@@ -28,7 +28,7 @@
         android:inputType="text"
         android:labelFor="@+id/page"
         android:autofillHints="name"
-        android:hint="@string/nom"/>
+        android:hint="@string/pre"/>
 
     <Button
         android:id="@+id/bouton_acces"

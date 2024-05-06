@@ -1,9 +1,13 @@
 package com.example.tp1
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.tp1.databinding.ActivityAjoutBinding
 import com.google.android.material.snackbar.Snackbar
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 class AjoutContact : AppCompatActivity() {
 
@@ -50,11 +54,19 @@ class AjoutContact : AppCompatActivity() {
         Toast.makeText(this, text, duration).show()
     }
 
+    private fun getDate() {
+        val cal = Calendar.getInstance()
+        val year = cal.get(Calendar.YEAR)
+        val month = cal.get(Calendar.MONTH)
+        val day = cal.get(Calendar.DAY_OF_MONTH)
+        val dpd = DatePickerDialog(this, { view, year, monthOfYear, dayOfMonth ->
+            cal.set(Calendar.YEAR, year)
+            cal.set(Calendar.MONTH, monthOfYear)
+            cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+            val myFormat = "dd.mm.yyyy" // mention the format you need
+            val sdf = SimpleDateFormat(myFormat, Locale.FRANCE)
+            Toast.makeText(this, sdf.format(cal.time), Toast.LENGTH_LONG).show()
 
-
-
-
-
-
-
+        }, year, month, day)
+    }
 }
