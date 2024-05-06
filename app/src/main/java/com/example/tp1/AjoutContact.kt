@@ -1,6 +1,4 @@
 package com.example.tp1
-
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -14,20 +12,28 @@ class AjoutContact : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAjoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val intent = Intent(this, AjoutContact::class.java)
         binding.btnval.setOnClickListener {
-            confCreation()
             if (binding.bajout.isChecked){
+                confCreationCourt()
                 confAddFav()
             }
+            else{
+                confCreationLong()
+            }
         }
-        val prenom = intent.getStringExtra("valeur")
-        binding.input1.setText(prenom)
+        val prenom = intent.getStringExtra("prenom")
+        binding.input2.setText(prenom)
     }
 
-    private fun confCreation(){
+    private fun confCreationCourt(){
         val text = "Contact sauvegardé !"
         val duration = Toast.LENGTH_SHORT
+        Toast.makeText(this, text, duration).show()
+    }
+
+    private fun confCreationLong(){
+        val text = "Contact sauvegardé !"
+        val duration = Toast.LENGTH_LONG
         Toast.makeText(this, text, duration).show()
     }
 

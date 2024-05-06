@@ -2,12 +2,7 @@ package com.example.tp1
 
 import android.content.Intent
 import android.os.Bundle
-import android.provider.AlarmClock.EXTRA_MESSAGE
-import android.widget.EditText
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.tp1.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -22,10 +17,10 @@ class MainActivity : AppCompatActivity() {
             sendValue()
         }
     }
-    fun sendValue(){
+    private fun sendValue(){
         val text = binding.input.text.toString()
         val intent = Intent(this, AjoutContact::class.java).apply {
-            putExtra("valeur", text);
+            putExtra("prenom", text)
         }
         startActivity(intent)
     }
