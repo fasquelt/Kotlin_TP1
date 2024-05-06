@@ -1,6 +1,5 @@
 package com.example.tp1
 import android.app.DatePickerDialog
-import android.app.DatePickerDialog.OnDateSetListener
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -21,48 +20,43 @@ class AjoutContact : AppCompatActivity() {
         binding = ActivityAjoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.btnval.setOnClickListener {
-            if(binding.input1.text.isEmpty() || binding.input2.text.isEmpty()){
+            if(binding.input1.text.isNullOrEmpty() || binding.input2.text.isNullOrEmpty()){
                 val snack = Snackbar.make(it,"Nom ou prénom manquant",Snackbar.LENGTH_LONG)
                 snack.show()
             }
             else{
                 if (binding.bajout.isChecked){
-                    confCreationCourt()
                     confAddFav()
                 }
                 else{
-                    confCreationLong()
+                    confCreation()
                 }
             }
         }
         val prenom = intent.getStringExtra("prenom")
         binding.input2.setText(prenom)
-        val date =
-            OnDateSetListener { view, year, month, day ->
-                myCalendar.set(Calendar.YEAR, year)
-                myCalendar.set(Calendar.MONTH, month)
-                myCalendar.set(Calendar.DAY_OF_MONTH, day)
-                updateLabel()
-            }
         binding.input3.setOnClickListener {
             setPopup()
         }
+        binding.f.setOnClickListener {
+            binding.image.setImageResource(R.drawable.femme)
+        }
+        binding.h.setOnClickListener {
+            binding.image.setImageResource(R.drawable.homme)
+        }
+        binding.a.setOnClickListener {
+            binding.image.setImageResource(R.drawable.lgbt)
+        }
     }
 
-    private fun confCreationCourt(){
+    private fun confCreation(){
         val text = "Contact sauvegardé !"
         val duration = Toast.LENGTH_SHORT
         Toast.makeText(this, text, duration).show()
     }
 
-    private fun confCreationLong(){
-        val text = "Contact sauvegardé !"
-        val duration = Toast.LENGTH_LONG
-        Toast.makeText(this, text, duration).show()
-    }
-
     private fun confAddFav(){
-        val text = "Contact ajouté aux favoris !"
+        val text = "Contact créé et ajouté aux favoris !"
         val duration = Toast.LENGTH_SHORT
         Toast.makeText(this, text, duration).show()
     }
@@ -81,11 +75,12 @@ class AjoutContact : AppCompatActivity() {
             Toast.makeText(this, sdf.format(cal.time), Toast.LENGTH_LONG).show()
 
         }, year, month, day).show()
+        updateLabel()
     }
 
     private fun updateLabel() {
         val myFormat = "MM/dd/yy"
-        val dateFormat = SimpleDateFormat(myFormat, Locale.US)
-        binding.input3.setText(dateFormat.format(myCalendar.getTime()))
+        val dateFormat = SimpleDateFormat(myFormat, Locale.FRANCE)
+        binding.input3.setText(dateFormat.format(myCalendar.time))
     }
 }
