@@ -12,6 +12,6 @@
     <string name="fav" > Ajouter aux favoris ? </string>
     <string name="ajoutfav">Ajouter aux favoris ?</string>
     <string name="valider">Valider</string>
-    <string name="ajout_de_contact">Ajout de contact</string>
+    <string name="ajout_de_contact">Accéder à la page d\'ajout</string>
     <string name="demande_prenom">Entrez le prénom du contact</string>
 </resources>
