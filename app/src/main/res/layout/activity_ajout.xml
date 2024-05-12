@@ -27,13 +27,31 @@
         app:layout_constraintTop_toBottomOf="@+id/titre"
         android:contentDescription="@string/alt_image" />
 
+    <Button
+        android:id="@+id/b_gallery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:text="@string/galerie"
+        app:layout_constraintTop_toBottomOf="@id/image"
+        app:layout_constraintEnd_toStartOf="@+id/image"/>
+
+    <Button
+        android:id="@+id/b_camera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:text="@string/camera"
+        app:layout_constraintTop_toBottomOf="@id/image"
+        app:layout_constraintStart_toEndOf="@id/image"/>
+
     <RadioGroup
         android:id="@+id/genre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/nom"
-        app:layout_constraintTop_toBottomOf="@+id/image"
+        app:layout_constraintTop_toBottomOf="@+id/b_gallery"
         app:layout_constraintStart_toEndOf="@+id/nom" >
 
         <RadioButton

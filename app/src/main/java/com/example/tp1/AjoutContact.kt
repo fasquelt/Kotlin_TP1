@@ -33,7 +33,7 @@ class StartGameDialogFragment : DialogFragment() {
 class AjoutContact : AppCompatActivity() {
 
     private lateinit var binding: ActivityAjoutBinding
-    val myCalendar = Calendar.getInstance()
+    val myCalendar: Calendar = Calendar.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -14,4 +14,6 @@
     <string name="valider">Valider</string>
     <string name="ajout_de_contact">Accéder à la page d\'ajout</string>
     <string name="demande_prenom">Entrez le prénom du contact</string>
+    <string name="galerie">Galerie</string>
+    <string name="camera">Camera</string>
 </resources>
