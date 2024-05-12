@@ -3,6 +3,8 @@ import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.os.Bundle
+import android.widget.Button
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
@@ -39,6 +41,9 @@ class AjoutContact : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAjoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        var imageView = findViewById<ImageView>(R.id.image);
+        var galleryBtn = findViewById<Button>(R.id.b_gallery);
+        var cameraBtn = findViewById<Button>(R.id.b_camera);
         binding.btnval.setOnClickListener {
             if(binding.input1.text.isNullOrEmpty() || binding.input2.text.isNullOrEmpty()){
                 val snack = Snackbar.make(it,"Nom ou prénom manquant",Snackbar.LENGTH_LONG)
