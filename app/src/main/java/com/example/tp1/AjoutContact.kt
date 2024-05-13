@@ -52,6 +52,9 @@ class AjoutContact : AppCompatActivity() {
                 else{
                     confCreation()
                 }
+                val newContact = Contact(binding.input1.text.toString(),
+                    binding.input2.text.toString(), binding.input3.text.toString())
+
             }
         }
         val prenom = intent.getStringExtra("prenom")
