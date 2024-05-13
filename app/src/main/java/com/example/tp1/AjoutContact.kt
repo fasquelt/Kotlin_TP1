@@ -2,6 +2,7 @@ package com.example.tp1
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -52,8 +53,11 @@ class AjoutContact : AppCompatActivity() {
                 else{
                     confCreation()
                 }
-                val newContact = Contact(binding.input1.text.toString(),
-                    binding.input2.text.toString(), binding.input3.text.toString())
+                intent = Intent().apply {
+                    putExtra("Nom", binding.input1.text.toString())
+                    putExtra("Prenom", binding.input2.text.toString())
+                    putExtra("Tel", binding.input3.text.toString())
+                }
 
             }
         }
