@@ -2,7 +2,7 @@
     <string name="app_name">TP n°1</string>
     <string name="nom">Nom </string>
     <string name="pre">Prénom </string>
-    <string name="ddn"> Né.e le : </string>
+    <string name="ddn"> Né.e le </string>
     <string name="genre"> Genre </string>
     <string name="h"> Homme </string>
     <string name="f"> Femme </string>
@@ -16,4 +16,5 @@
     <string name="demande_prenom">Entrez le prénom du contact</string>
     <string name="galerie">Galerie</string>
     <string name="camera">Camera</string>
+    <string name="tel">Téléphone </string>
 </resources>

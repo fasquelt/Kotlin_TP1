@@ -97,7 +97,6 @@
         app:layout_constraintTop_toBottomOf="@+id/genre"
         app:layout_constraintStart_toEndOf="@+id/nom"
         android:autofillHints="name"
-        android:hint="@string/nom"
         >
 
     </com.google.android.material.textfield.TextInputEditText>
@@ -120,7 +119,6 @@
         app:layout_constraintTop_toBottomOf="@+id/input1"
         app:layout_constraintStart_toEndOf="@+id/pre"
         android:autofillHints="name"
-        android:hint="@string/pre"
         >
 
     </com.google.android.material.textfield.TextInputEditText>
@@ -145,7 +143,29 @@
         app:layout_constraintTop_toBottomOf="@+id/input2"
         app:layout_constraintStart_toStartOf="@+id/input2"
         android:autofillHints="Date de naissance"
-        android:hint="@string/ddn"
+        >
+
+    </com.google.android.material.textfield.TextInputEditText>
+
+    <TextView
+        android:id="@+id/tel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:clickable="false"
+        android:text="@string/tel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHeight="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/input3" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/input4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/input3"
+        app:layout_constraintStart_toEndOf="@+id/tel"
+        android:autofillHints="Téléphone"
+        android:inputType="phone"
         >
 
     </com.google.android.material.textfield.TextInputEditText>
@@ -156,7 +176,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/ajoutfav"
-        app:layout_constraintTop_toBottomOf="@id/input3"
+        app:layout_constraintTop_toBottomOf="@id/input4"
         app:layout_constraintStart_toStartOf="parent"/>
 
     <Button
