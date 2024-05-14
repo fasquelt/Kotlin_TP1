@@ -14,4 +14,6 @@
     <string name="valider">Valider</string>
     <string name="ajout_de_contact">Ajout de contact</string>
     <string name="demande_prenom">Entrez le prénom du contact</string>
+    <string name="titre_liste">Liste de contacts</string>
+    <string name="description_liste">Liste des contacts enregistrés</string>
 </resources>
