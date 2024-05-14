@@ -5,7 +5,7 @@ import android.app.Activity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-class MyListAdapter(private val context: Activity, contacts: Array<Contact>)
+private class MyListAdapter(private val context: Activity, contacts: Array<Contact>)
     : ArrayAdapter<Contact>(context, R.layout.custom_list, contacts) {
 
     @SuppressLint("ViewHolder", "InflateParams")
