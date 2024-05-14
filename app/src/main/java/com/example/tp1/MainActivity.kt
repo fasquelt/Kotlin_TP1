@@ -31,6 +31,17 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         val myListAdapter = MyListAdapter(this, contacts = contacts)
         binding.list.adapter = myListAdapter
+        binding.boutonAcces.setOnClickListener {
+            sendValue()
+        }
         AjoutLauncher.launch(intent)
+    }
+
+    private fun sendValue(){
+        val text = binding.input.text.toString()
+        val intent = Intent(this, AjoutContact::class.java).apply {
+            putExtra("prenom", text)
+        }
+        startActivity(intent)
     }
 }
