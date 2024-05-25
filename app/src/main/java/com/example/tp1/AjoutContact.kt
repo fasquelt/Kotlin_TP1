@@ -45,12 +45,14 @@ class AjoutContact : AppCompatActivity() {
                 snack.show()
             }
             else{
+                val nom = binding.input1.text.toString()
+                val prenom = binding.input2.text.toString()
                 StartGameDialogFragment().show(supportFragmentManager, "CONFIRMATION")
                 if (binding.bajout.isChecked){
-                    confAddFav()
+                    confAddFav(prenom,nom)
                 }
                 else{
-                    confCreation()
+                    confCreation(prenom, nom)
                 }
             }
         }
@@ -70,14 +72,14 @@ class AjoutContact : AppCompatActivity() {
         }
     }
 
-    private fun confCreation(){
-        val text = "Contact sauvegardé !"
+    private fun confCreation(p : String, n : String){
+        val text = "Contact : "+p+" "+n+" sauvegardé !"
         val duration = Toast.LENGTH_SHORT
         Toast.makeText(this, text, duration).show()
     }
 
-    private fun confAddFav(){
-        val text = "Contact créé et ajouté aux favoris !"
+    private fun confAddFav(p : String, n : String){
+        val text = "Contact : "+p+" "+n+" créé et ajouté aux favoris !"
         val duration = Toast.LENGTH_SHORT
         Toast.makeText(this, text, duration).show()
     }
