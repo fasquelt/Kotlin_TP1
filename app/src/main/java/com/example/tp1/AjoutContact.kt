@@ -1,7 +1,9 @@
 package com.example.tp1
+import android.app.Activity
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -18,7 +20,8 @@ class StartGameDialogFragment : DialogFragment() {
             // Use the Builder class for convenient dialog construction.
             val builder = AlertDialog.Builder(it)
             builder.setMessage("Confirmer l'ajout")
-                .setPositiveButton("Oui") { dialog, id ->
+                .setPositiveButton("Oui") { dialog, which ->
+                    AjoutContact.finished = true
                 }
                 .setNegativeButton("Non") { dialog, id ->
                     // User cancelled the dialog.
@@ -44,14 +47,22 @@ class AjoutContact : AppCompatActivity(){
                 snack.show()
             }
             else{
+                StartGameDialogFragment().show(supportFragmentManager, "CONFIRMATION")
                 val nom = binding.input1.text.toString()
                 val prenom = binding.input2.text.toString()
-                StartGameDialogFragment().show(supportFragmentManager, "CONFIRMATION")
-                if (binding.bajout.isChecked){
-                    confAddFav(prenom,nom)
-                }
-                else{
-                    confCreation(prenom, nom)
+                val fullName = prenom+nom
+                if (finished == true){
+                    if (binding.bajout.isChecked){
+                        confAddFav(prenom,nom)
+                    }
+                    else{
+                        confCreation(prenom, nom)
+                    }
+                    intent = Intent().apply {
+                        putExtra("contact",fullName)
+                    }
+                    setResult(Activity.RESULT_OK, intent)
+                    startActivity(intent)
                 }
             }
         }
@@ -104,6 +115,10 @@ class AjoutContact : AppCompatActivity(){
 
     private fun updateLabel(v : String) {
         binding.input3.setText(v)
+    }
+
+    companion object {
+        var finished = false
     }
 
 }

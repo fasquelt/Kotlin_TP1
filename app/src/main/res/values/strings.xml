@@ -15,4 +15,5 @@
     <string name="ajout_de_contact">Ajout de contact</string>
     <string name="demande_prenom">Entrez le prénom du contact</string>
     <string name="tel">Téléphone</string>
+    <string name="code">intentCode</string>
 </resources>
