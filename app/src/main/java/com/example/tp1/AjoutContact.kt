@@ -30,10 +30,9 @@ class StartGameDialogFragment : DialogFragment() {
 }
 
 
-class AjoutContact : AppCompatActivity() {
+class AjoutContact : AppCompatActivity(){
 
     private lateinit var binding: ActivityAjoutBinding
-    val myCalendar = Calendar.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,21 +88,24 @@ class AjoutContact : AppCompatActivity() {
         val year = cal.get(Calendar.YEAR)
         val month = cal.get(Calendar.MONTH)
         val day = cal.get(Calendar.DAY_OF_MONTH)
-        DatePickerDialog(this, { view, year, monthOfYear, dayOfMonth ->
-            cal.set(Calendar.YEAR, year)
-            cal.set(Calendar.MONTH, monthOfYear)
-            cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+        val datePicker = DatePickerDialog(this, {_, selectedYear, selectedMonthOfYear, selectedDayOfMonth ->
+            val selectedDate = Calendar.getInstance()
+            selectedDate.clear()
+            selectedDate.set(selectedYear, selectedMonthOfYear, selectedDayOfMonth)
+            cal.set(Calendar.YEAR, selectedYear)
+            cal.set(Calendar.MONTH, selectedMonthOfYear)
+            cal.set(Calendar.DAY_OF_MONTH, selectedDayOfMonth)
             val myFormat = "dd.mm.yyyy" // mention the format you need
             val sdf = SimpleDateFormat(myFormat, Locale.FRANCE)
+            updateLabel(sdf.format(cal.time).toString())
             Toast.makeText(this, sdf.format(cal.time), Toast.LENGTH_LONG).show()
 
-        }, year, month, day).show()
-        updateLabel()
+        }, year, month, day)
+        datePicker.show()
     }
 
-    private fun updateLabel() {
-        val myFormat = "dd/MM/yyyy"
-        val dateFormat = SimpleDateFormat(myFormat, Locale.FRANCE)
-        binding.input3.setText(dateFormat.format(myCalendar.time))
+    private fun updateLabel(v : String) {
+        binding.input3.setText(v)
     }
+
 }
