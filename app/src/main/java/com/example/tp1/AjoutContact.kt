@@ -88,18 +88,16 @@ class AjoutContact : AppCompatActivity(){
         val year = cal.get(Calendar.YEAR)
         val month = cal.get(Calendar.MONTH)
         val day = cal.get(Calendar.DAY_OF_MONTH)
-        val datePicker = DatePickerDialog(this, {_, selectedYear, selectedMonth, selectedDayOfMonth ->
-            val selectedDate = Calendar.getInstance()
-            selectedDate.clear()
-            selectedDate.set(selectedYear, selectedMonth, selectedDayOfMonth)
-            cal.set(Calendar.YEAR, selectedYear)
-            cal.set(Calendar.MONTH, selectedMonth)
-            cal.set(Calendar.DAY_OF_MONTH, selectedDayOfMonth)
-            val myFormat = "dd.mm.yyyy" // mention the format you need
-            val sdf = SimpleDateFormat(myFormat, Locale.FRANCE)
-            updateLabel(sdf.format(cal.time).toString())
-            Toast.makeText(this, sdf.format(cal.time), Toast.LENGTH_LONG).show()
+        val datePicker = DatePickerDialog(this, { view, year, monthOfYear, dayOfMonth ->
 
+            cal.set(Calendar.YEAR, year)
+            cal.set(Calendar.MONTH, monthOfYear)
+            cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+
+            val myFormat = "dd.MM.yyyy" // mention the format you need
+            val sdf = SimpleDateFormat(myFormat, Locale.FRANCE)
+            val date = sdf.format(cal.time)
+            updateLabel(date)
         }, year, month, day)
         datePicker.show()
     }
