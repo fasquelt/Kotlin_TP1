@@ -1,7 +1,7 @@
 package com.example.tp1
-import android.app.AlertDialog
 import android.app.DatePickerDialog
-import android.app.Dialog
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -12,28 +12,12 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
-class StartGameDialogFragment : DialogFragment() {
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return activity?.let {
-            // Use the Builder class for convenient dialog construction.
-            val builder = AlertDialog.Builder(it)
-            builder.setMessage("Confirmer l'ajout")
-                .setPositiveButton("Oui") { dialog, id ->
-                }
-                .setNegativeButton("Non") { dialog, id ->
-                    // User cancelled the dialog.
-                }
-            // Create the AlertDialog object and return it.
-            builder.create()
-        } ?: throw IllegalStateException("Activity cannot be null")
-    }
-}
 
-
-class AjoutContact : AppCompatActivity() {
+class AjoutContact : AppCompatActivity(), NoticeDialogFragment.NoticeDialogListener {
 
     private lateinit var binding: ActivityAjoutBinding
     val myCalendar = Calendar.getInstance()
+    private var conf = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,9 +29,18 @@ class AjoutContact : AppCompatActivity() {
                 snack.show()
             }
             else{
-                StartGameDialogFragment().show(supportFragmentManager, "CONFIRMATION")
-                if (binding.bajout.isChecked){
-                    confAddFav()
+                val dialog = NoticeDialogFragment();
+                dialog.onCreateDialog(savedInstanceState);
+                val button = dialog.listener
+                val c = Contact(binding.input1.text.toString(), binding.input2.text.toString(), "test")
+                dialog.show(this.supportFragmentManager, "Confirmer l'ajout ?")
+                fun launchNextScreen(context : Context, contact : Contact): Intent {
+                    val intent = Intent(this, MainActivity::class.java)
+                    intent.putExtra("nouveau", c)
+                    return intent
+                }
+                if (binding.bajout.isChecked && button.onDialogPositiveClick(dialog).equals("Oui")){
+                    confAddFav();
                 }
                 else{
                     confCreation()
@@ -71,13 +64,17 @@ class AjoutContact : AppCompatActivity() {
     }
 
     private fun confCreation(){
-        val text = "Contact sauvegardé !"
+        val p = binding.input1.text
+        val n = binding.input2.text
+        val text = "Contact "+p+" "+n+ " sauvegardé !"
         val duration = Toast.LENGTH_SHORT
         Toast.makeText(this, text, duration).show()
     }
 
     private fun confAddFav(){
-        val text = "Contact créé et ajouté aux favoris !"
+        val p = binding.input1.text
+        val n = binding.input2.text
+        val text = "Contact "+p+" "+n+ " créé et ajouté aux favoris !"
         val duration = Toast.LENGTH_SHORT
         Toast.makeText(this, text, duration).show()
     }
@@ -103,5 +100,13 @@ class AjoutContact : AppCompatActivity() {
         val myFormat = "dd/MM/yyyy"
         val dateFormat = SimpleDateFormat(myFormat, Locale.FRANCE)
         binding.input3.setText(dateFormat.format(myCalendar.time))
+    }
+
+    override fun onDialogPositiveClick(dialog: DialogFragment) {
+        conf = true;
+    }
+
+    override fun onDialogNegativeClick(dialog: DialogFragment) {
+        conf = false
     }
 }

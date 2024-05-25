@@ -24,4 +24,6 @@ class MainActivity : AppCompatActivity() {
         }
         startActivity(intent)
     }
+
+    val nouveauContact = intent.getSerializableExtra("nouveau")
 }
