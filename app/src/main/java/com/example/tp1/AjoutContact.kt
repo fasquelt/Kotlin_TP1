@@ -3,8 +3,6 @@ import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.os.Bundle
-import android.widget.Button
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
@@ -32,30 +30,28 @@ class StartGameDialogFragment : DialogFragment() {
 }
 
 
-class AjoutContact : AppCompatActivity() {
+class AjoutContact : AppCompatActivity(){
 
     private lateinit var binding: ActivityAjoutBinding
-    val myCalendar: Calendar = Calendar.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAjoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        var imageView = findViewById<ImageView>(R.id.image);
-        var galleryBtn = findViewById<Button>(R.id.b_gallery);
-        var cameraBtn = findViewById<Button>(R.id.b_camera);
         binding.btnval.setOnClickListener {
             if(binding.input1.text.isNullOrEmpty() || binding.input2.text.isNullOrEmpty()){
                 val snack = Snackbar.make(it,"Nom ou prénom manquant",Snackbar.LENGTH_LONG)
                 snack.show()
             }
             else{
+                val nom = binding.input1.text.toString()
+                val prenom = binding.input2.text.toString()
                 StartGameDialogFragment().show(supportFragmentManager, "CONFIRMATION")
                 if (binding.bajout.isChecked){
-                    confAddFav()
+                    confAddFav(prenom,nom)
                 }
                 else{
-                    confCreation()
+                    confCreation(prenom, nom)
                 }
             }
         }
@@ -75,14 +71,14 @@ class AjoutContact : AppCompatActivity() {
         }
     }
 
-    private fun confCreation(){
-        val text = "Contact sauvegardé !"
+    private fun confCreation(p : String, n : String){
+        val text = p+" "+n+" sauvegardé !"
         val duration = Toast.LENGTH_SHORT
         Toast.makeText(this, text, duration).show()
     }
 
-    private fun confAddFav(){
-        val text = "Contact créé et ajouté aux favoris !"
+    private fun confAddFav(p : String, n : String){
+        val text = p+" "+n+" sauvegardé dans les favoris !"
         val duration = Toast.LENGTH_SHORT
         Toast.makeText(this, text, duration).show()
     }
@@ -92,21 +88,22 @@ class AjoutContact : AppCompatActivity() {
         val year = cal.get(Calendar.YEAR)
         val month = cal.get(Calendar.MONTH)
         val day = cal.get(Calendar.DAY_OF_MONTH)
-        DatePickerDialog(this, { view, year, monthOfYear, dayOfMonth ->
+        val datePicker = DatePickerDialog(this, { view, year, monthOfYear, dayOfMonth ->
+
             cal.set(Calendar.YEAR, year)
             cal.set(Calendar.MONTH, monthOfYear)
             cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-            val myFormat = "dd.mm.yyyy" // mention the format you need
+
+            val myFormat = "dd.MM.yyyy" // mention the format you need
             val sdf = SimpleDateFormat(myFormat, Locale.FRANCE)
-            Toast.makeText(this, sdf.format(cal.time), Toast.LENGTH_LONG).show()
-
-        }, year, month, day).show()
-        updateLabel()
+            val date = sdf.format(cal.time)
+            updateLabel(date)
+        }, year, month, day)
+        datePicker.show()
     }
 
-    private fun updateLabel() {
-        val myFormat = "dd/MM/yyyy"
-        val dateFormat = SimpleDateFormat(myFormat, Locale.FRANCE)
-        binding.input3.setText(dateFormat.format(myCalendar.time))
+    private fun updateLabel(v : String) {
+        binding.input3.setText(v)
     }
+
 }

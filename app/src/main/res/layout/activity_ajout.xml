@@ -27,31 +27,13 @@
         app:layout_constraintTop_toBottomOf="@+id/titre"
         android:contentDescription="@string/alt_image" />
 
-    <Button
-        android:id="@+id/b_gallery"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:text="@string/galerie"
-        app:layout_constraintTop_toBottomOf="@id/image"
-        app:layout_constraintEnd_toStartOf="@+id/image"/>
-
-    <Button
-        android:id="@+id/b_camera"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:text="@string/camera"
-        app:layout_constraintTop_toBottomOf="@id/image"
-        app:layout_constraintStart_toEndOf="@id/image"/>
-
     <RadioGroup
         android:id="@+id/genre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/nom"
-        app:layout_constraintTop_toBottomOf="@+id/b_gallery"
+        app:layout_constraintTop_toBottomOf="@+id/image"
         app:layout_constraintStart_toEndOf="@+id/nom" >
 
         <RadioButton
@@ -97,6 +79,7 @@
         app:layout_constraintTop_toBottomOf="@+id/genre"
         app:layout_constraintStart_toEndOf="@+id/nom"
         android:autofillHints="name"
+        android:hint="@string/nom"
         >
 
     </com.google.android.material.textfield.TextInputEditText>
@@ -119,6 +102,7 @@
         app:layout_constraintTop_toBottomOf="@+id/input1"
         app:layout_constraintStart_toEndOf="@+id/pre"
         android:autofillHints="name"
+        android:hint="@string/pre"
         >
 
     </com.google.android.material.textfield.TextInputEditText>
@@ -143,6 +127,7 @@
         app:layout_constraintTop_toBottomOf="@+id/input2"
         app:layout_constraintStart_toStartOf="@+id/input2"
         android:autofillHints="Date de naissance"
+        android:hint="@string/ddn"
         >
 
     </com.google.android.material.textfield.TextInputEditText>
@@ -153,6 +138,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
         android:text="@string/tel"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintHeight="wrap_content"
@@ -164,8 +151,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/input3"
         app:layout_constraintStart_toEndOf="@+id/tel"
-        android:autofillHints="Téléphone"
-        android:inputType="phone"
+        android:autofillHints="Numéro de téléphone"
+        android:hint="@string/tel"
         >
 
     </com.google.android.material.textfield.TextInputEditText>
