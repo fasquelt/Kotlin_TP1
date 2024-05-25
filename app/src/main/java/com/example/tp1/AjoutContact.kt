@@ -73,13 +73,13 @@ class AjoutContact : AppCompatActivity() {
     }
 
     private fun confCreation(p : String, n : String){
-        val text = "Contact : "+p+" "+n+" sauvegardé !"
+        val text = p+" "+n+" sauvegardé !"
         val duration = Toast.LENGTH_SHORT
         Toast.makeText(this, text, duration).show()
     }
 
     private fun confAddFav(p : String, n : String){
-        val text = "Contact : "+p+" "+n+" créé et ajouté aux favoris !"
+        val text = p+" "+n+" sauvegardé dans les favoris !"
         val duration = Toast.LENGTH_SHORT
         Toast.makeText(this, text, duration).show()
     }

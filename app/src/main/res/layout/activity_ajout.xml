@@ -132,14 +132,39 @@
 
     </com.google.android.material.textfield.TextInputEditText>
 
+    <TextView
+        android:id="@+id/tel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:text="@string/tel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHeight="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/input3" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/input4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/input3"
+        app:layout_constraintStart_toEndOf="@+id/tel"
+        android:autofillHints="Numéro de téléphone"
+        android:hint="@string/tel"
+        >
+
+    </com.google.android.material.textfield.TextInputEditText>
+
 
     <CheckBox
         android:id="@+id/bajout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/ajoutfav"
-        app:layout_constraintTop_toBottomOf="@id/input3"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/input4"
+        app:layout_constraintStart_toEndOf="parent"/>
 
     <Button
         android:id="@+id/btnval"
