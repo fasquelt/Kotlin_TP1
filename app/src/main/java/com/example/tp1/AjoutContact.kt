@@ -19,7 +19,7 @@ class StartGameDialogFragment : DialogFragment() {
         return activity?.let {
             // Use the Builder class for convenient dialog construction.
             val builder = AlertDialog.Builder(it)
-            builder.setMessage("Confirmer l'ajout")
+            builder.setMessage("Confirmer l'ajout ? Une fois cette fenêtre fermée, cliquez sur le bouton valider pour revenir à l'accueil")
                 .setPositiveButton("Oui") { dialog, which ->
                     AjoutContact.finished = true
                 }
