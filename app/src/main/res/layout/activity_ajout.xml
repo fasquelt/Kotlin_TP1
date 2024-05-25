@@ -164,7 +164,7 @@
         android:layout_height="wrap_content"
         android:text="@string/ajoutfav"
         app:layout_constraintTop_toBottomOf="@id/input4"
-        app:layout_constraintStart_toEndOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <Button
         android:id="@+id/btnval"
