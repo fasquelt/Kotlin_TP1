@@ -14,6 +14,9 @@
     <string name="valider">Valider</string>
     <string name="ajout_de_contact">Ajout de contact</string>
     <string name="demande_prenom">Entrez le prénom du contact</string>
-    <string name="titre_liste">Liste de contacts</string>
-    <string name="description_liste">Liste des contacts enregistrés</string>
+    <string name="tel">Téléphone</string>
+    <string name="code">intentCode</string>
+    <string name="DernierAjout">Dernier contact ajouté</string>
+    <string name="galerie">Importer une photo</string>
+    <string name="camera">Prendre une photo</string>
 </resources>

@@ -1,17 +1,20 @@
 package com.example.tp1
 
+import ContactAdapter
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ListView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.tp1.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    var contacts : Array<Contact> = arrayOf(
+    var contacts : MutableList<Contact> = mutableListOf(
         Contact("Test","Voila","02"),
         Contact("Ici", "Voila", "03")
     )
@@ -22,7 +25,7 @@ class MainActivity : AppCompatActivity() {
                 val dataP = intent.getStringExtra("Prenom")
                 val dataT = intent.getStringExtra("Tel")
                 val newContact = Contact(dataN.toString(), dataP.toString(), dataT.toString())
-                contacts.fill(newContact,contacts.size, contacts.size+1)
+                contacts.add(newContact)
             }
         }
     }
@@ -31,10 +34,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val myListAdapter = ContactAdapter(this, contacts = contacts)
-        val list = findViewById<ListView>(R.id.list)
-        list.adapter = myListAdapter
-        binding.list.adapter = myListAdapter
+        val adapter = ContactAdapter()
+        adapter.submitList(contacts)
+        val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
+        binding.recyclerView.setLayoutManager(layoutManager)
         binding.boutonAcces.setOnClickListener {
             sendValue()
         }
