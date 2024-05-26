@@ -1,10 +1,13 @@
 package com.example.tp1
 
 
+import ContactAdapter
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.tp1.databinding.ActivityMainBinding
 
 
@@ -13,6 +16,11 @@ class MainActivity : AppCompatActivity() {
 
     // initialisation des variables
     private lateinit var binding: ActivityMainBinding // lien avec la vue
+    val listeContacts : MutableList<Contact> = mutableListOf(
+        Contact("W", "R", "02")
+    )
+
+
 
     // fonction de création
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,6 +28,10 @@ class MainActivity : AppCompatActivity() {
         // utilisation du fichier XML en passant par le binding pour la vue
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val adapter = ContactAdapter()
+        adapter.submitList(listeContacts)
+        val layoutManager : RecyclerView.LayoutManager = LinearLayoutManager(this)
+        binding.recyclerView.setLayoutManager(layoutManager)
         // ajout du listener pour l'accès au formulaire et la transmission du prénom du contact
         binding.boutonAcces.setOnClickListener {
             sendValue()
