@@ -17,7 +17,6 @@ class MainActivity : AppCompatActivity() {
                 result -> if (result.resultCode == Activity.RESULT_OK){
                     result.data?.also {
                             data -> val aff = data.getStringExtra(intentCode)
-                        binding.lastadd.text = aff
                     }
             }
         }
@@ -47,8 +46,6 @@ class MainActivity : AppCompatActivity() {
         val intentRecupContact = Intent(this, AjoutContact::class.java)
         recuperationLauncher.launch(intentRecupContact)
         val fullName = intentRecupContact.getStringExtra("contact")
-        val newField = binding.lastadd.text.toString()+fullName
-        binding.lastadd.setText(newField)
     }
 
     private fun sendValue(){
