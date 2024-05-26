@@ -3,6 +3,7 @@ package com.example.tp1
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ListView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.example.tp1.databinding.ActivityMainBinding
@@ -11,7 +12,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     var contacts : Array<Contact> = arrayOf(
-        Contact("Test","Voila","02")
+        Contact("Test","Voila","02"),
+        Contact("Ici", "Voila", "03")
     )
     private val AjoutLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
             result -> if (result.resultCode == Activity.RESULT_OK){
@@ -29,7 +31,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val myListAdapter = MyListAdapter(this, contacts = contacts)
+        val myListAdapter = ContactAdapter(this, contacts = contacts)
+        val list = findViewById<ListView>(R.id.list)
+        list.adapter = myListAdapter
         binding.list.adapter = myListAdapter
         binding.boutonAcces.setOnClickListener {
             sendValue()
