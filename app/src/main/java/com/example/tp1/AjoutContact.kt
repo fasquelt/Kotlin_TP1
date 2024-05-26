@@ -110,6 +110,7 @@ class AjoutContact : AppCompatActivity(){
                     }
                     setResult(Activity.RESULT_OK, intent)
                     startActivity(intent)
+                    finish()
                 }
             }
         }

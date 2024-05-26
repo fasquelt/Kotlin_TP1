@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity() {
             result -> if (result.resultCode == Activity.RESULT_OK){
                 result.data?.also {
                     data -> val aff = data.getStringExtra(intentCode)
+                    binding.lastadd.setText(aff)
                 }
             }
         }
