@@ -17,4 +17,6 @@
     <string name="tel">Téléphone</string>
     <string name="code">intentCode</string>
     <string name="DernierAjout">Dernier contact ajouté</string>
+    <string name="galerie">Importer une photo</string>
+    <string name="camera">Prendre une photo</string>
 </resources>

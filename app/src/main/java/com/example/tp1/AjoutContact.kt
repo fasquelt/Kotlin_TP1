@@ -3,9 +3,17 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.Dialog
+import android.content.ContentValues
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
+import android.widget.Button
+import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import com.example.tp1.databinding.ActivityAjoutBinding
@@ -36,11 +44,50 @@ class StartGameDialogFragment : DialogFragment() {
 class AjoutContact : AppCompatActivity(){
 
     private lateinit var binding: ActivityAjoutBinding
+    lateinit var imageContact : ImageView
+    lateinit var btnGal : Button
+    lateinit var btnCam : Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAjoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        imageContact = findViewById<ImageView>(R.id.image)
+        btnGal = findViewById<Button>(R.id.gal)
+        btnCam = findViewById<Button>(R.id.cam)
+
+        val galleryActivityResultLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) {
+            if (it.resultCode == RESULT_OK) {
+                val image_uri: Uri? = it.data?.data
+                imageContact.setImageURI(image_uri)
+            }
+
+        }
+
+        btnCam.setOnClickListener {
+            if (checkSelfPermission(android.Manifest.permission.CAMERA) ==
+                PackageManager.PERMISSION_DENIED ||
+                checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_DENIED
+            ) {
+                val permission = arrayOf<String>(
+                    android.Manifest.permission.CAMERA,
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+                )
+                requestPermissions(permission, 112)
+            } else {
+                openCamera()
+            }
+        }
+
+
+        btnGal.setOnClickListener {
+            val galleryIntent =
+                Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            galleryActivityResultLauncher.launch(galleryIntent)
+        }
         binding.btnval.setOnClickListener {
             if(binding.input1.text.isNullOrEmpty() || binding.input2.text.isNullOrEmpty()){
                 val snack = Snackbar.make(it,"Nom ou prénom manquant",Snackbar.LENGTH_LONG)
@@ -80,6 +127,26 @@ class AjoutContact : AppCompatActivity(){
         binding.a.setOnClickListener {
             binding.image.setImageResource(R.drawable.lgbt)
         }
+    }
+
+    var image_uri: Uri? = null
+
+    private var cameraActivityResultLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) {
+        if (it.resultCode == RESULT_OK) {
+            imageContact.setImageURI(image_uri)
+        }
+    }
+
+    private fun openCamera() {
+        val values = ContentValues()
+        values.put(MediaStore.Images.Media.TITLE, "New Picture")
+        values.put(MediaStore.Images.Media.DESCRIPTION, "From the Camera")
+        image_uri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri)
+        cameraActivityResultLauncher.launch(cameraIntent)
     }
 
     private fun confCreation(p : String, n : String){

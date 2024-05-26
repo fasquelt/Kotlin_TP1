@@ -27,14 +27,32 @@
         app:layout_constraintTop_toBottomOf="@+id/titre"
         android:contentDescription="@string/alt_image" />
 
+    <Button
+        android:id="@+id/gal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/galerie"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image" />
+
+    <Button
+        android:id="@+id/cam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/camera"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image" />
+
+
     <RadioGroup
         android:id="@+id/genre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/nom"
-        app:layout_constraintTop_toBottomOf="@+id/image"
-        app:layout_constraintStart_toEndOf="@+id/nom" >
+        app:layout_constraintTop_toBottomOf="@+id/gal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <RadioButton
             android:id="@+id/f"
