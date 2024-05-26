@@ -16,13 +16,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ListView
-        android:layout_width="wrap_content"
-        android:id="@+id/list"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/message"
-        app:layout_constraintStart_toStartOf="parent"
-        />
 
     <EditText
         android:id="@+id/input"
@@ -30,8 +23,7 @@
         android:layout_height="wrap_content"
         android:height="5dp"
         app:layout_constraintStart_toStartOf="@+id/message"
-        app:layout_constraintTop_toBottomOf="@+id/list"
-        app:layout_constraintBottom_toTopOf="@+id/bouton_acces"
+        app:layout_constraintTop_toBottomOf="@id/message"
         android:inputType="text"
         android:labelFor="@+id/page"
         android:autofillHints="name"
@@ -42,9 +34,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/ajout_de_contact"
-        app:layout_constraintTop_toBottomOf="@+id/input"
+        app:layout_constraintTop_toBottomOf="@id/input"
         app:layout_constraintStart_toStartOf="@+id/input"
         app:layout_constraintEnd_toEndOf="@+id/message"
         />
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bouton_acces" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
