@@ -25,16 +25,17 @@ import java.util.Locale
 class StartGameDialogFragment : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
-            // Use the Builder class for convenient dialog construction.
+            // construction de la fenêtre de dialogue
             val builder = AlertDialog.Builder(it)
+            // ajout des messages par défaut
             builder.setMessage("Confirmer l'ajout ? Une fois cette fenêtre fermée, cliquez sur le bouton valider pour revenir à l'accueil")
                 .setPositiveButton("Oui") { dialog, which ->
-                    AjoutContact.finished = true
+                    AjoutContact.finished = true // puis du listener pour la validation
                 }
                 .setNegativeButton("Non") { dialog, id ->
-                    // User cancelled the dialog.
+                    // et de celui d'annulation
                 }
-            // Create the AlertDialog object and return it.
+            // création de la fenêtre afin de l'afficher par la suite
             builder.create()
         } ?: throw IllegalStateException("Activity cannot be null")
     }
@@ -43,19 +44,24 @@ class StartGameDialogFragment : DialogFragment() {
 
 class AjoutContact : AppCompatActivity(){
 
+    // ajout des variables : lien avec la vue
     private lateinit var binding: ActivityAjoutBinding
+    // boutons et composants de l'interface qui seront utilisés
     lateinit var imageContact : ImageView
     lateinit var btnGal : Button
     lateinit var btnCam : Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // utilisation du binding pour avoir la vue
         binding = ActivityAjoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        imageContact = findViewById<ImageView>(R.id.image)
-        btnGal = findViewById<Button>(R.id.gal)
-        btnCam = findViewById<Button>(R.id.cam)
+        // récupération des affichages en passant par les id
+        imageContact = findViewById(R.id.image)
+        btnGal = findViewById(R.id.gal)
+        btnCam = findViewById(R.id.cam)
 
+        // création du lancher pour le passage d'image
         val galleryActivityResultLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) {
@@ -65,7 +71,7 @@ class AjoutContact : AppCompatActivity(){
             }
 
         }
-
+        // ajout du listener pour le lancement de la caméra
         btnCam.setOnClickListener {
             if (checkSelfPermission(android.Manifest.permission.CAMERA) ==
                 PackageManager.PERMISSION_DENIED ||
@@ -83,37 +89,50 @@ class AjoutContact : AppCompatActivity(){
         }
 
 
+        // ajout du listener pour le lancement de la galerie
+
         btnGal.setOnClickListener {
             val galleryIntent =
                 Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             galleryActivityResultLauncher.launch(galleryIntent)
         }
+
+        // listener pour la validation de l'ajout du contact
         binding.btnval.setOnClickListener {
             if(binding.input1.text.isNullOrEmpty() || binding.input2.text.isNullOrEmpty()){
+                // cas où l'un des champs nécessaires est manquant
                 val snack = Snackbar.make(it,"Nom ou prénom manquant",Snackbar.LENGTH_LONG)
                 snack.show()
+                // affichage d'une snackbar d'erreur
             }
             else{
                 StartGameDialogFragment().show(supportFragmentManager, "CONFIRMATION")
+                // affichage de la fenetre de dialogue créée dans la classes précédente
                 val nom = binding.input1.text.toString()
                 val prenom = binding.input2.text.toString()
                 val fullName = prenom+nom
+                // récupération des valeurs afin d'en faire une chaîne qui sera transmise
                 if (finished == true){
+                    // vérification que l'utilisateur a confirmé et appel des fonctions graphiques
                     if (binding.bajout.isChecked){
                         confAddFav(prenom,nom)
                     }
                     else{
                         confCreation(prenom, nom)
                     }
+                    // création de l'intent et ajout du paramètre
                     intent = Intent().apply {
                         putExtra("contact",fullName)
                     }
+                    // mise à jour du résultat pour l'intent créé dans l'autre classe
                     setResult(Activity.RESULT_OK, intent)
+                    // lancement de l'autre activité, qui permet de revenir à l'accueil
                     startActivity(intent)
                     finish()
                 }
             }
         }
+        // ajout des listeners pour changer l'image de profil en fonction du genre
         val prenom = intent.getStringExtra("prenom")
         binding.input2.setText(prenom)
         binding.input3.setOnClickListener {
@@ -132,6 +151,7 @@ class AjoutContact : AppCompatActivity(){
 
     var image_uri: Uri? = null
 
+    // lancement de la caméra
     private var cameraActivityResultLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) {
@@ -139,7 +159,7 @@ class AjoutContact : AppCompatActivity(){
             imageContact.setImageURI(image_uri)
         }
     }
-
+    // fonction pour appeler le launcher défini précédemment
     private fun openCamera() {
         val values = ContentValues()
         values.put(MediaStore.Images.Media.TITLE, "New Picture")
@@ -149,6 +169,8 @@ class AjoutContact : AppCompatActivity(){
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri)
         cameraActivityResultLauncher.launch(cameraIntent)
     }
+
+    // fonction graphiques pour afficher un toast en fonction de l'ajout ou non aux favoris
 
     private fun confCreation(p : String, n : String){
         val text = p+" "+n+" sauvegardé !"
@@ -162,21 +184,23 @@ class AjoutContact : AppCompatActivity(){
         Toast.makeText(this, text, duration).show()
     }
 
+    // création et affichage de la popup pour saisir la date de naissance
     private fun setPopup() {
         val cal = Calendar.getInstance()
         val year = cal.get(Calendar.YEAR)
         val month = cal.get(Calendar.MONTH)
         val day = cal.get(Calendar.DAY_OF_MONTH)
+        // récupération de la date entrée
         val datePicker = DatePickerDialog(this, { view, year, monthOfYear, dayOfMonth ->
 
             cal.set(Calendar.YEAR, year)
             cal.set(Calendar.MONTH, monthOfYear)
             cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
-            val myFormat = "dd.MM.yyyy" // mention the format you need
+            val myFormat = "dd.MM.yyyy" // précision du format
             val sdf = SimpleDateFormat(myFormat, Locale.FRANCE)
             val date = sdf.format(cal.time)
-            updateLabel(date)
+            updateLabel(date) // mise à jour du champ texte par la fonction
         }, year, month, day)
         datePicker.show()
     }
@@ -185,6 +209,7 @@ class AjoutContact : AppCompatActivity(){
         binding.input3.setText(v)
     }
 
+    // déclaration de la variable globale qui permet de savoir si l'utilisateur a validé ou non
     companion object {
         var finished = false
     }
