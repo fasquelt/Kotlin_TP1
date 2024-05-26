@@ -1,54 +1,52 @@
 package com.example.tp1
 
-import ContactAdapter
-import android.app.Activity
+
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.tp1.databinding.ActivityMainBinding
 
 
+// classe d'accueil du projet, qui permttra d'accéder au formulaire d'ajout d'un contac
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
-    var contacts : MutableList<Contact> = mutableListOf(
-        Contact("Test","Voila","02"),
-        Contact("Ici", "Voila", "03")
-    )
-    private val AjoutLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-            result -> if (result.resultCode == Activity.RESULT_OK){
-            result.data?.also{ data ->
-                val dataN = intent.getStringExtra("Nom")
-                val dataP = intent.getStringExtra("Prenom")
-                val dataT = intent.getStringExtra("Tel")
-                val newContact = Contact(dataN.toString(), dataP.toString(), dataT.toString())
-                contacts.add(newContact)
-            }
-        }
-    }
-    private val intent = Intent(this, AjoutContact::class.java)
+    // initialisation des variables
+    private lateinit var binding: ActivityMainBinding // lien avec la vue
+
+    // fonction de création
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // utilisation du fichier XML en passant par le binding pour la vue
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val adapter = ContactAdapter()
-        adapter.submitList(contacts)
-        val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
-        binding.recyclerView.setLayoutManager(layoutManager)
+        // ajout du listener pour l'accès au formulaire et la transmission du prénom du contact
         binding.boutonAcces.setOnClickListener {
             sendValue()
         }
-        AjoutLauncher.launch(intent)
+        // vérification des permissions pour la caméra et l'accès à la galerie
+
+        if (checkSelfPermission(android.Manifest.permission.CAMERA) ==
+            PackageManager.PERMISSION_DENIED ||
+            checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            == PackageManager.PERMISSION_DENIED) {
+            val permission = arrayOf<String>(
+                android.Manifest.permission.CAMERA,
+                android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+            )
+            requestPermissions(permission, 112)
+        }
+
     }
 
+    // fonction d'envoi de la valeur entrée dans le champ texte de la page d'accueil
+    // et qui sera affecté au champ "nom"
     private fun sendValue(){
         val text = binding.input.text.toString()
-        val intent = Intent(this, AjoutContact::class.java).apply {
+        val intentEnvoiNom = Intent(this, AjoutContact::class.java).apply {
             putExtra("prenom", text)
         }
-        startActivity(intent)
+        startActivity(intentEnvoiNom) // lancement de l'intent lié à la classe AjoutContact
+        // qui est défini au-dessus
     }
 }
