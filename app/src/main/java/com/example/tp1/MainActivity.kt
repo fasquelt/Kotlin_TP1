@@ -12,8 +12,15 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     val intentCode = "contact"
-
-
+    private val recuperationLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+                result -> if (result.resultCode == Activity.RESULT_OK){
+                    result.data?.also {
+                            data -> val aff = data.getStringExtra(intentCode)
+                        binding.lastadd.text = aff
+                    }
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,16 +40,8 @@ class MainActivity : AppCompatActivity() {
             )
             requestPermissions(permission, 112)
         }
+
     }
-    private val recuperationLauncher =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-            result -> if (result.resultCode == Activity.RESULT_OK){
-                result.data?.also {
-                    data -> val aff = data.getStringExtra(intentCode)
-                    binding.lastadd.setText(aff)
-                }
-            }
-        }
 
     private fun getValue(){
         val intentRecupContact = Intent(this, AjoutContact::class.java)
