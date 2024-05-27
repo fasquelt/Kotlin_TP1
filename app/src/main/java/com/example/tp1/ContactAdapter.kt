@@ -1,26 +1,29 @@
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tp1.Contact
-import com.example.tp1.ContactViewHolder
 import com.example.tp1.DiffCallback
 import com.example.tp1.R
 import com.example.tp1.databinding.ListeContactBinding
 
-class ContactAdapter : ListAdapter<Contact, ContactViewHolder>(DiffCallback()) {
+class ContactAdapter : ListAdapter<Contact, ContactAdapter.ContactViewHolder>(DiffCallback()) {
 
-    class UserViewHolder(itemView: View) :
+    class ContactViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView){
         private lateinit var binding: ListeContactBinding
+        lateinit var nomTextView : TextView
+        lateinit var prenomTextView : TextView
+        lateinit var telTextView : TextView
+            fun bind(c: Contact){
+                binding.prenom.setText(c.firstname)
+                binding.nom.setText(c.name)
+                binding.tel.setText(c.tel)
+            }
+        }
 
-        fun bind(c: Contact){
-            binding.prenom.setText(c.firstname)
-            binding.nom.setText(c.name)
-            binding.tel.setText(c.tel)
-        }
-        }
 
 
 
@@ -35,6 +38,7 @@ class ContactAdapter : ListAdapter<Contact, ContactViewHolder>(DiffCallback()) {
         holder.prenomTextView.text = contact.firstname
         holder.telTextView.text = contact.tel
     }
+
 
 
 
