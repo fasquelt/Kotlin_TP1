@@ -11,12 +11,11 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     var contacts : MutableList<Contact> = mutableListOf(
-        Contact("Test","Voila","02"),
-        Contact("Ici", "Voila", "03")
+        Contact("Ici", "Voila", "03"),
+        Contact("Tesgjgnt","Voila","02"),
     )
 
 
-    private val intent = Intent(this, AjoutContact::class.java)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
