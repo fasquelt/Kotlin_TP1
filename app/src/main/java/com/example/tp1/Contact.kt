@@ -1,19 +1,16 @@
 package com.example.tp1
 
-import android.view.View
-import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.example.tp1.databinding.ListeContactBinding
 import java.io.Serializable
 
 data class Contact
     (val name : String, val firstname : String, val tel : String)
-    : Serializable
+    : Serializable {
+        companion object{
+            var contacts : MutableList<Contact> = mutableListOf(
+                Contact("Exemple1", "Voila", "03"),
+                Contact("Exemple2","Voila","02"),
+            )
+        }
+    }
 
-class ContactViewHolder(view: View) : ViewHolder(view) {
-    val nomTextView: TextView = view.findViewById(R.id.nom)
-    val prenomTextView: TextView = view.findViewById(R.id.pre)
-    val telTextView: TextView = view.findViewById(R.id.tel)
-    private lateinit var binding: ListeContactBinding
 
-}

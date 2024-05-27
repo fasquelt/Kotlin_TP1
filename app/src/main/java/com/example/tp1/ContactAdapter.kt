@@ -26,6 +26,10 @@ class ContactAdapter : ListAdapter<Contact, ContactAdapter.ContactViewHolder>(Di
         holder.bind(getItem(position))
     }
 
+    fun addContact(c : Contact){
+        Contact.contacts.add(c)
+    }
+
 
 
 

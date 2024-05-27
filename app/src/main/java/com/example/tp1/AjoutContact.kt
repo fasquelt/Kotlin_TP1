@@ -1,4 +1,5 @@
 package com.example.tp1
+import ContactAdapter
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.DatePickerDialog
@@ -44,11 +45,13 @@ class StartGameDialogFragment : DialogFragment() {
 class AjoutContact : AppCompatActivity(){
 
     private lateinit var binding: ActivityAjoutBinding
+    var cAdapter = ContactAdapter()
     lateinit var imageContact : ImageView
     lateinit var btnGal : Button
     lateinit var btnCam : Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         binding = ActivityAjoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -97,8 +100,11 @@ class AjoutContact : AppCompatActivity(){
                 StartGameDialogFragment().show(supportFragmentManager, "CONFIRMATION")
                 val nom = binding.input1.text.toString()
                 val prenom = binding.input2.text.toString()
+                val tel = binding.input4.text.toString()
                 val fullName = prenom+nom
+                val newC = Contact(nom, prenom,tel)
                 if (finished == true){
+                    cAdapter.addContact(newC)
                     if (binding.bajout.isChecked){
                         confAddFav(prenom,nom)
                     }
